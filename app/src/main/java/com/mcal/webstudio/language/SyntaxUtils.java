@@ -85,6 +85,75 @@ public class SyntaxUtils {
         return symbolList;
     }
 
+    public static ArrayList<String> JAVA_symbol() {
+        ArrayList<String> symbolList = new ArrayList<>();
+        symbolList.add("TAB");
+        symbolList.add("{");
+        symbolList.add("}");
+        symbolList.add("(");
+        symbolList.add(")");
+        symbolList.add(";");
+        symbolList.add(".");
+        symbolList.add(",");
+        symbolList.add("\"");
+        symbolList.add("'");
+        symbolList.add(":");
+        symbolList.add("+");
+        symbolList.add("-");
+        symbolList.add("=");
+        symbolList.add("[");
+        symbolList.add("]");
+        symbolList.add("<");
+        symbolList.add(">");
+        return symbolList;
+    }
+
+    public static ArrayList<String> C_symbol() {
+        ArrayList<String> symbolList = new ArrayList<>();
+        symbolList.add("TAB");
+        symbolList.add("{");
+        symbolList.add("}");
+        symbolList.add("(");
+        symbolList.add(")");
+        symbolList.add(";");
+        symbolList.add(".");
+        symbolList.add(",");
+        symbolList.add("\"");
+        symbolList.add("'");
+        symbolList.add(":");
+        symbolList.add("+");
+        symbolList.add("-");
+        symbolList.add("=");
+        symbolList.add("[");
+        symbolList.add("]");
+        symbolList.add("<");
+        symbolList.add(">");
+        return symbolList;
+    }
+
+    public static ArrayList<String> CPP_symbol() {
+        ArrayList<String> symbolList = new ArrayList<>();
+        symbolList.add("TAB");
+        symbolList.add("{");
+        symbolList.add("}");
+        symbolList.add("(");
+        symbolList.add(")");
+        symbolList.add(";");
+        symbolList.add(".");
+        symbolList.add(",");
+        symbolList.add("\"");
+        symbolList.add("'");
+        symbolList.add(":");
+        symbolList.add("+");
+        symbolList.add("-");
+        symbolList.add("=");
+        symbolList.add("[");
+        symbolList.add("]");
+        symbolList.add("<");
+        symbolList.add(">");
+        return symbolList;
+    }
+
     public static ArrayList<String> ALL_symbol() {
         ArrayList<String> symbolList = new ArrayList<>();
         symbolList.add("TAB");

@@ -33,6 +33,8 @@ public class LangSyntax {
     public static String CSS = "css";
     public static String SCSS = "scss";
     public static String NONE = "";
+    public static String C = "c";
+    public static String CPP = "cpp";
 
     public static ArrayList<String> none() throws Exception {
         return new ArrayList<>();

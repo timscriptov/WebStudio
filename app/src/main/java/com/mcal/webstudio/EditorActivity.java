@@ -35,17 +35,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mcal.webstudio.adapter.HistoryAdapter;
 import com.mcal.webstudio.adapter.SymbolAdapter;
+import com.mcal.webstudio.adapter.SyntaxCAdapter;
+import com.mcal.webstudio.adapter.SyntaxCPPAdapter;
 import com.mcal.webstudio.adapter.SyntaxCSSAdapter;
 import com.mcal.webstudio.adapter.SyntaxHTMLAdapter;
+import com.mcal.webstudio.adapter.SyntaxJAVAAdapter;
 import com.mcal.webstudio.adapter.SyntaxJSAdapter;
 import com.mcal.webstudio.app.Data;
 import com.mcal.webstudio.language.LangSyntax;
+import com.mcal.webstudio.language.LanguageC;
+import com.mcal.webstudio.language.LanguageCPP;
 import com.mcal.webstudio.language.LanguageCSS;
 import com.mcal.webstudio.language.LanguageHTML;
+import com.mcal.webstudio.language.LanguageJAVA;
 import com.mcal.webstudio.language.LanguageJS;
 import com.mcal.webstudio.language.SyntaxUtils;
 import com.mcal.webstudio.manager.DFManager;
 import com.mcal.webstudio.manager.FileManager;
+import com.mcal.webstudio.tokenizer.TokenizerC;
+import com.mcal.webstudio.tokenizer.TokenizerCPP;
 import com.mcal.webstudio.tokenizer.TokenizerCSS;
 import com.mcal.webstudio.tokenizer.TokenizerHTML;
 import com.mcal.webstudio.tokenizer.TokenizerJS;
@@ -212,12 +220,42 @@ public class EditorActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        if (path.endsWith(LangSyntax.JAVASCRIPT) || path.endsWith(LangSyntax.JAVASCRIPT2) || path.endsWith(LangSyntax.JAVA) || path.endsWith(LangSyntax.CLASS)) {
+        if (path.endsWith(LangSyntax.JAVASCRIPT) || path.endsWith(LangSyntax.JAVASCRIPT2)) {
             try {
                 mCodeEditor.type = LangSyntax.JAVASCRIPT;
                 mCodeEditor.setTokenizer(new TokenizerJS());
                 mCodeEditor.setAdapter(new SyntaxJSAdapter(context, R.layout.row_tokenizer, LanguageJS.js()));
                 setUpdateSymbol(SyntaxUtils.JS_symbol(), context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (path.endsWith(LangSyntax.JAVA)) {
+            try {
+                mCodeEditor.type = LangSyntax.JAVA;
+                mCodeEditor.setTokenizer(new TokenizerJS());
+                mCodeEditor.setAdapter(new SyntaxJAVAAdapter(context, R.layout.row_tokenizer, LanguageJAVA.java()));
+                setUpdateSymbol(SyntaxUtils.JAVA_symbol(), context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (path.endsWith(LangSyntax.C)) {
+            try {
+                mCodeEditor.type = LangSyntax.C;
+                mCodeEditor.setTokenizer(new TokenizerC());
+                mCodeEditor.setAdapter(new SyntaxCAdapter(context, R.layout.row_tokenizer, LanguageC.c()));
+                setUpdateSymbol(SyntaxUtils.C_symbol(), context);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (path.endsWith(LangSyntax.CPP)) {
+            try {
+                mCodeEditor.type = LangSyntax.CPP;
+                mCodeEditor.setTokenizer(new TokenizerCPP());
+                mCodeEditor.setAdapter(new SyntaxCPPAdapter(context, R.layout.row_tokenizer, LanguageCPP.cpp()));
+                setUpdateSymbol(SyntaxUtils.CPP_symbol(), context);
             } catch (Exception e) {
                 e.printStackTrace();
             }

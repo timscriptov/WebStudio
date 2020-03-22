@@ -414,6 +414,21 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
             if (type.equals(LangSyntax.JAVASCRIPT)) {
                 setSyntaxJS(e);
             }
+
+            //JAVA
+            if (type.equals(LangSyntax.JAVA)) {
+                setSyntaxJS(e);
+            }
+
+            //C
+            if (type.equals(LangSyntax.C)) {
+                setSyntaxJS(e);
+            }
+
+            //CPP
+            if (type.equals(LangSyntax.CPP)) {
+                setSyntaxJS(e);
+            }
         } catch (IllegalStateException ex) {
             // raised by Matcher.start()/.end() when
             // no successful match has been made what
