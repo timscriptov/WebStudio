@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+
+	<androidx.preference.PreferenceCategory
+		android:layout="@layout/preference_category_custom"
+		android:key="systemCategory"
+		android:title="System">
+
+		<androidx.preference.SwitchPreference
+			android:key="themeKey"
+			android:defaultValue="true"
+			android:title="Dark theme"/>	
+
+	</androidx.preference.PreferenceCategory>
+	
+	<androidx.preference.PreferenceCategory
+		android:layout="@layout/preference_category_custom"
+		android:key="editorCategory"
+		android:title="Editor">
+
+		<androidx.preference.SwitchPreference
+			android:key="autoSaveKey"
+			android:defaultValue="true"
+			android:title="Save file"
+			android:summary="Auto save file, if editor hidden"/>
+		
+		<androidx.preference.SwitchPreference
+			android:key="clearHistoryKey"
+			android:defaultValue="false"
+			android:title="Clear history"
+			android:summary="Clear history, if editor stopped"/>
+		
+		<androidx.preference.SwitchPreference
+			android:key="horizontalScrollKey"
+			android:defaultValue="true"
+			android:title="Horizontal scroll"
+			android:summary="Enable code scrolling to horizontal"/>
+		
+	</androidx.preference.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen >

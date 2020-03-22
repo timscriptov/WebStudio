@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingStart="15dp"
+	android:paddingEnd="15dp"
+	android:orientation="vertical">
+
+	<androidx.appcompat.widget.AppCompatTextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/with"
+		android:layout_marginStart="13dp"
+		android:layout_marginTop="10dp"/>
+
+	<androidx.appcompat.widget.AppCompatEditText
+		android:layout_height="48dp"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:id="@+id/mEditWith"
+		android:textSize="16sp"
+		android:maxLines="6"/>
+
+	<androidx.appcompat.widget.AppCompatTextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textAppearance="?android:attr/textAppearanceSmall"
+		android:text="@string/to"
+		android:layout_marginStart="13dp"
+		android:layout_marginTop="10dp"/>
+
+	<androidx.appcompat.widget.AppCompatEditText
+		android:layout_height="48dp"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:id="@+id/mEditTo"
+		android:textSize="16sp"
+		android:maxLines="6"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:layout_marginTop="30dp"
+		android:gravity="right|center_vertical"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		tools:ignore="RtlHardcoded">
+
+		<androidx.appcompat.widget.AppCompatButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/cancel"
+			android:id="@+id/mButtonCancel"/>
+
+		<androidx.appcompat.widget.AppCompatButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/ok"
+			android:id="@+id/mButtonReplace"/>
+
+	</LinearLayout>
+
+</LinearLayout>

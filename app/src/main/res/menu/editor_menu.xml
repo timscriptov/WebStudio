@@ -1,0 +1,31 @@
+<menu xmlns:tools="http://schemas.android.com/tools"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+	<item
+		android:id="@+id/action_undo"
+		app:showAsAction="always"
+		android:icon="@drawable/baseline_undo_24"
+		android:title="@string/undo"/>
+	<item
+		android:id="@+id/action_redo"
+		app:showAsAction="always"
+		android:icon="@drawable/baseline_redo_24"
+		android:title="@string/redo"/>
+	<item
+		android:id="@+id/action_run"
+		app:showAsAction="always"
+		android:icon="@drawable/baseline_play_arrow_24"
+		android:title="@string/run"
+		tools:ignore="AlwaysShowAction" />
+	<item
+        android:id="@+id/action_save"
+        android:icon="@drawable/baseline_save_24"
+        android:title="@string/save"/>
+	<item
+        android:id="@+id/action_file_manager"
+        android:icon="@drawable/baseline_folder_open_24"
+        android:title="@string/file_manager"/>
+	<item
+        android:id="@+id/action_replace"
+        android:title="@string/replace"/>
+</menu>

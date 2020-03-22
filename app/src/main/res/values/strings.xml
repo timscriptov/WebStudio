@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Web Studio</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="run">Run</string>
+    <string name="save">Save</string>
+    <string name="create_project">Create project</string>
+    <string name="ok">OK</string>
+    <string name="create_file">Create file</string>
+    <string name="create_directory">Create directory</string>
+    <string name="rename">Rename</string>
+    <string name="settings">Settings</string>
+    <string name="export_to_web_studio">Export to Web Studio</string>
+    <string name="delete">Delete</string>
+    <string name="please_wait">Please wait…</string>
+    <string name="error_opening_file">"Error opening file: "</string>
+    <string name="create">Create</string>
+    <string name="enter_name">Enter name</string>
+    <string name="enter_name_project">Enter name project</string>
+    <string name="main_path">Main path</string>
+    <string name="cancel">Cancel</string>
+    <string name="file_manager">File manager</string>
+    <string name="enter_new_name">Enter new name</string>
+    <string name="replace">Replace</string>
+    <string name="to">To</string>
+    <string name="with">With</string>
+    <string name="clear_all">Clear all</string>
+    <string name="history">History</string>
+    <string name="cleared">Cleared!</string>
+    <string name="please_enter_value">Please enter value</string>
+    <string name="saved">Saved!</string>
+    <string name="error_write_file">\"Error write file: \"</string>
+    <string name="error_saved_not_file">Error saved! No file</string>
+    <string name="error_read_file">\"Error read file: \"</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="renamed">Renamed!</string>
+    <string name="error_rename">Error rename...</string>
+
+</resources>

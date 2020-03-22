@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical">
+
+	<com.google.android.material.appbar.AppBarLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical"
+			android:paddingTop="20dp"
+			android:paddingBottom="20dp"
+			android:gravity="center_vertical">
+
+			<androidx.appcompat.widget.AppCompatTextView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:gravity="center_vertical"
+				android:textSize="19sp"
+				android:textStyle="bold"
+				android:text="@string/file_manager"
+				android:layout_marginStart="21dp"
+				android:textColor="@android:color/white"/>
+
+			<androidx.appcompat.widget.AppCompatTextView
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:layout_marginStart="21dp"
+				android:id="@+id/mTextPath"
+				android:textColor="@android:color/white"
+				android:layout_marginEnd="20dp"
+				android:layout_marginTop="4dp"
+				android:textSize="14sp"/>
+
+		</LinearLayout>
+
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical">
+
+		<LinearLayout
+			android:id="@+id/mLinearBack"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:gravity="center_vertical"
+			android:clickable="true"
+			android:padding="12dp"
+			android:layout_marginTop="0dp"
+			android:focusable="true"
+			tools:ignore="UselessParent">
+
+			<androidx.appcompat.widget.AppCompatImageView
+				android:layout_height="wrap_content"
+				android:layout_width="wrap_content"
+				android:tint="@color/colorFileManagerIcon"
+				android:src="@drawable/baseline_folder_open_24"/>
+
+			<androidx.appcompat.widget.AppCompatTextView
+				android:layout_height="wrap_content"
+				android:layout_width="0dp"
+				android:text=".."
+				android:layout_marginStart="10dp"
+				android:textSize="13sp"
+				android:textAppearance="?android:attr/textAppearanceLarge"
+				android:layout_weight="1.0"/>
+
+		</LinearLayout>
+
+	</LinearLayout>
+
+	<RelativeLayout
+		android:layout_height="0dp"
+		android:layout_width="match_parent"
+		android:layout_weight="1">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/mRecyclerView"
+			android:requiresFadingEdge="vertical"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+
+	</RelativeLayout>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:layout_marginTop="30dp"
+		android:gravity="right|center_vertical"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		tools:ignore="RtlHardcoded">
+
+		<androidx.appcompat.widget.AppCompatButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/main_path"
+			android:textAllCaps="true"
+			android:id="@+id/mButtonMain"/>
+
+		<androidx.appcompat.widget.AppCompatImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:tint="?attr/colorAccent"
+			android:src="@drawable/baseline_add_24"
+			android:id="@+id/mButtonCreate"
+			android:contentDescription="@string/create" />
+
+		<androidx.appcompat.widget.AppCompatButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="@string/cancel"
+			android:textAllCaps="true"
+			android:id="@+id/mButtonCancel"/>
+
+	</LinearLayout>
+
+</LinearLayout>

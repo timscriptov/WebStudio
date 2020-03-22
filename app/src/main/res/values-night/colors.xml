@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="colorPrimary">#FF2F3034</color>
+	<color name="colorPrimaryDark">#FF2F3034</color>
+	<color name="colorAccent">#FF72A1F6</color>
+	<color name="windowBackground">#FF202125</color>
+	<color name="colorControlNormal">#FFFFFFFF</color>
+	<color name="colorFileManagerIcon">#FF72A1F6</color>
+	<color name="colorMenuIcon">#FFE9EEFF</color>
+	<color name="navigationBarColor">#FF202125</color>
+	<color name="textColorPrimary">#FFF</color>
+	<color name="textColorSecondary">#FFF</color >
+
+
+	<color name="colorLineNum">#FFE9E9E9</color>
+	<color name="colorLine">#FFE2E2E2</color>
+	<color name="colorTextLineNum">#FF838383</color>
+
+	<color name="syntax_error">#FFFF6960</color>
+	<color name="syntax_number">#FF2EA0E9</color>
+	<color name="syntax_string">#FFED855B</color>
+	<color name="syntax_keyword">#FF4593E2</color>
+	<color name="syntax_builtin">#FFE7C67A</color>
+	<color name="syntax_comment">#FF5DD4A3</color>
+	<color name="syntax_cursor">#FFFFFFFF</color>
+
+	<color name="line">#20FFFFFF</color>
+
+</resources>

@@ -1,0 +1,33 @@
+{
+  "version": 2,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.vipapp.webmark2",
+  "variantName": "processReleaseResources",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "properties": [
+        {
+          "key": "packageId",
+          "value": "com.vipapp.webmark2"
+        },
+        {
+          "key": "split",
+          "value": ""
+        },
+        {
+          "key": "minSdkVersion",
+          "value": "21"
+        }
+      ],
+      "versionCode": 6,
+      "versionName": "0.0.6b",
+      "enabled": true,
+      "outputFile": "app-release.apk"
+    }
+  ]
+}

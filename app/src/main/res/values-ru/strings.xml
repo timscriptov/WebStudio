@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Web Studio</string>
+    <string name="undo">Undo</string>
+    <string name="redo">Redo</string>
+    <string name="run">Запустить</string>
+    <string name="save">Сохранить</string>
+    <string name="create_project">Создать проект</string>
+    <string name="ok">ОК</string>
+    <string name="create_file">Создать файл</string>
+    <string name="create_directory">Создать папку</string>
+    <string name="rename">Переименовать</string>
+    <string name="settings">Настройки</string>
+    <string name="export_to_web_studio">Export to Web Studio</string>
+    <string name="delete">Удалить</string>
+    <string name="please_wait">Пожалуйста подождите…</string>
+    <string name="error_opening_file">"Ошибка открытия файла: "</string>
+    <string name="create">Создать</string>
+    <string name="enter_name">Введите имя</string>
+    <string name="enter_name_project">Введите имя проекта</string>
+    <string name="main_path">Main path</string>
+    <string name="cancel">Отмена</string>
+    <string name="file_manager">File manager</string>
+    <string name="enter_new_name">Введите новое имя</string>
+    <string name="replace">Заменить</string>
+    <string name="to">Заменить на</string>
+    <string name="with">Найти</string>
+    <string name="clear_all">Очистить всё</string>
+    <string name="history">История</string>
+    <string name="cleared">Cleared!</string>
+    <string name="please_enter_value">Please enter value</string>
+    <string name="saved">Saved!</string>
+    <string name="error_write_file">\"Error write file: \"</string>
+    <string name="error_saved_not_file">Error saved! No file</string>
+    <string name="error_read_file">\"Error read file: \"</string>
+    <string name="please_enter_name">Please enter name</string>
+    <string name="renamed">Renamed!</string>
+    <string name="error_rename">Error rename...</string>
+
+</resources>
