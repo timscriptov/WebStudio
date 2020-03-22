@@ -2,7 +2,7 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	xmlns:tools="http://schemas.android.com/tools"
-	package="com.vipapp.webmark2">
+	package="com.mcal.webstudio">
 	
 	<uses-permission android:name="android.permission.INTERNET"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -19,7 +19,7 @@
 		android:resizeableActivity="false"
 		tools:targetApi="q">
 		<activity
-			android:name="com.vipapp.webmark2.MainActivity"
+			android:name="com.mcal.webstudio.MainActivity"
 			android:label="@string/app_name"
 			android:windowSoftInputMode="stateHidden"
 			android:configChanges="orientation|screenSize|locale">
@@ -29,26 +29,26 @@
 			</intent-filter>
 		</activity>
 		<activity
-			android:name="com.vipapp.webmark2.EditorActivity"
+			android:name="com.mcal.webstudio.EditorActivity"
 			android:label="@string/app_name"
 			android:windowSoftInputMode="stateHidden"
 			android:configChanges="orientation|screenSize|locale">
 		</activity>
 		<activity
-			android:name="com.vipapp.webmark2.SettingsActivity"
+			android:name="com.mcal.webstudio.SettingsActivity"
 			android:label="@string/app_name"
 			android:windowSoftInputMode="stateHidden"
 			android:configChanges="orientation|screenSize|locale">
 		</activity>
 		<activity
-			android:name="com.vipapp.webmark2.RunActivity"
+			android:name="com.mcal.webstudio.RunActivity"
 			android:label="@string/app_name"
 			android:exported="false"
 			android:windowSoftInputMode="stateHidden"
 			android:configChanges="orientation|screenSize|locale">
 		</activity>
 		<activity
-			android:name="com.vipapp.webmark2.BrowserActivity"
+			android:name="com.mcal.webstudio.BrowserActivity"
 			android:label="@string/app_name"
 			android:exported="false"
 			android:windowSoftInputMode="stateHidden"

@@ -21,7 +21,7 @@
 
 		</com.google.android.material.appbar.AppBarLayout>
 		
-		<com.vipapp.webmark2.widget.CodeEditor
+		<com.mcal.webstudio.widget.CodeEditor
 			android:id="@+id/mCodeEditor"
 			android:layout_weight="1"
 			android:layout_width="match_parent"
