@@ -68,13 +68,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     private static final Pattern PATTERN_TRAILING_WHITE_SPACE = Pattern.compile(
-            "[\\t ]+$",
-            Pattern.MULTILINE);
+		"[\\t ]+$",
+		Pattern.MULTILINE);
     private static final Pattern PATTERN_INSERT_UNIFORM = Pattern.compile(
-            "^([ \t]*uniform.+)$",
-            Pattern.MULTILINE);
+		"^([ \t]*uniform.+)$",
+		Pattern.MULTILINE);
     private static final Pattern PATTERN_ENDIF = Pattern.compile(
-            "(#endif)\\b");
+		"(#endif)\\b");
 
     private final Handler updateHandler = new Handler();
     private final Runnable updateRunnable = new Runnable() {
@@ -82,9 +82,9 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         public void run() {
             Editable e = getText();
 
-            if (onTextChangedListener != null) {
+            if(onTextChangedListener != null) {
                 onTextChangedListener.onTextChanged(
-                        removeNonAscii(e.toString()));
+					removeNonAscii(e.toString()));
             }
 
             highlightWithoutChange(e);
@@ -151,7 +151,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void setTabWidth(int characters) {
-        if (tabWidthInCharacters == characters) {
+        if(tabWidthInCharacters == characters) {
             return;
         }
 
@@ -176,7 +176,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void setTextHighlighted(CharSequence text) {
-        if (text == null) {
+        if(text == null) {
             text = "";
         }
 
@@ -190,15 +190,15 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         setText(highlight(new SpannableStringBuilder(src)));
         modified = true;
 
-        if (onTextChangedListener != null) {
+        if(onTextChangedListener != null) {
             onTextChangedListener.onTextChanged(src);
         }
     }
 
     public String getCleanText() {
         return PATTERN_TRAILING_WHITE_SPACE
-                .matcher(getText())
-                .replaceAll("");
+			.matcher(getText())
+			.replaceAll("");
     }
 
     public void insertTab() {
@@ -213,7 +213,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void addUniform(String statement) {
-        if (statement == null) {
+        if(statement == null) {
             return;
         }
 
@@ -223,11 +223,11 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         Matcher m = PATTERN_INSERT_UNIFORM.matcher(e);
         int start = -1;
 
-        while (m.find()) {
+        while(m.find()) {
             start = m.end();
         }
 
-        if (start > -1) {
+        if(start > -1) {
             // add line break before statement because it's
             // inserted before the last line-break
             statement = "\n" + statement;
@@ -238,7 +238,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
 
             // add an empty line between the last #endif
             // and the now following uniform
-            if ((start = endIndexOfLastEndIf(e)) > -1) {
+            if((start = endIndexOfLastEndIf(e)) > -1) {
                 statement = "\n" + statement;
             }
 
@@ -251,19 +251,19 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     private void removeUniform(Editable e, String statement) {
-        if (statement == null) {
+        if(statement == null) {
             return;
         }
 
         String regex = "^(" + statement.replace(" ", "[ \\t]+");
         int p = regex.indexOf(";");
-        if (p > -1) {
+        if(p > -1) {
             regex = regex.substring(0, p);
         }
         regex += ".*\\n)$";
 
         Matcher m = Pattern.compile(regex, Pattern.MULTILINE).matcher(e);
-        if (m.find()) {
+        if(m.find()) {
             e.delete(m.start(), m.end());
         }
     }
@@ -272,7 +272,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         Matcher m = PATTERN_ENDIF.matcher(e);
         int idx = -1;
 
-        while (m.find()) {
+        while(m.find()) {
             idx = m.end();
         }
 
@@ -303,13 +303,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE | InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
         setFilters(new InputFilter[]{(source, start, end, dest, dstart, dend) -> {
-            if (modified &&
-                    end - start == 1 &&
-                    start < source.length() &&
-                    dstart < dest.length()) {
+            if(modified &&
+			   end - start == 1 &&
+			   start < source.length() &&
+			   dstart < dest.length()) {
                 char c = source.charAt(start);
 
-                if (c == '\n') {
+                if(c == '\n') {
                     return autoIndent(source, dest, dstart, dend);
                 }
             }
@@ -317,38 +317,51 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
             return source;
         }});
 
-        addTextChangedListener(new TextWatcher() {
-            private int start = 0;
-            private int count = 0;
+		setOnTouchListener(new OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				if(hasFocus()) {
+					v.getParent().requestDisallowInterceptTouchEvent(true);
+					switch(event.getAction() & MotionEvent.ACTION_MASK) {
+						case MotionEvent.ACTION_SCROLL:
+							v.getParent().requestDisallowInterceptTouchEvent(false);
+						return true;
+					}
+				}
+			return false;
+		}});
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                this.start = start;
-                this.count = count;
-            }
+	addTextChangedListener(new TextWatcher() {
+	private int start = 0;
+	private int count = 0;
 
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+	@Override
+	public void onTextChanged(CharSequence s, int start, int before, int count) {
+		this.start = start;
+		this.count = count;
+	}
 
-            }
+	@Override
+	public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            @Override
-            public void afterTextChanged(Editable e) {
-                cancelUpdate();
-                convertTabs(e, start, count);
+	}
 
-                if (!modified) {
-                    return;
-                }
+	@Override
+	public void afterTextChanged(Editable e) {
+		cancelUpdate();
+		convertTabs(e, start, count);
 
-                dirty = true;
-                updateHandler.postDelayed(updateRunnable, updateDelay);
-            }
-        });
+		if(!modified) {
+			return;
+		}
 
-        setSyntaxColors(context);
-        //setUpdateDelay(CodeEditorApp.preferences.getUpdateDelay());
-        //setTabWidth(CodeEditorApp.preferences.getTabWidth());
+		dirty = true;
+		updateHandler.postDelayed(updateRunnable, updateDelay);
+	}
+	});
+
+	setSyntaxColors(context);
+	//setUpdateDelay(CodeEditorApp.preferences.getUpdateDelay());
+	//setTabWidth(CodeEditorApp.preferences.getTabWidth());
     }
 
     public void clearUndoRedo() {
@@ -356,13 +369,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     public void undo() {
-        if (undoRedo.getCanUndo()) {
+        if(undoRedo.getCanUndo()) {
             undoRedo.undo();
         }
     }
 
     public void redo() {
-        if (undoRedo.getCanRedo()) {
+        if(undoRedo.getCanRedo()) {
             undoRedo.redo();
         }
     }
@@ -396,40 +409,40 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
             // remove too much
             clearSpans(e, length);
 
-            if (length == 0) {
+            if(length == 0) {
                 return e;
             }
 
             //HTML
-            if (type.equals(LangSyntax.HTML)) {
+            if(type.equals(LangSyntax.HTML)) {
                 setSyntaxHTML(e);
             }
 
             //CSS
-            if (type.equals(LangSyntax.CSS)) {
+            if(type.equals(LangSyntax.CSS)) {
                 setSyntaxCSS(e);
             }
 
             //JS
-            if (type.equals(LangSyntax.JAVASCRIPT)) {
+            if(type.equals(LangSyntax.JAVASCRIPT)) {
                 setSyntaxJS(e);
             }
 
             //JAVA
-            if (type.equals(LangSyntax.JAVA)) {
+            if(type.equals(LangSyntax.JAVA)) {
                 setSyntaxJS(e);
             }
 
             //C
-            if (type.equals(LangSyntax.C)) {
+            if(type.equals(LangSyntax.C)) {
                 setSyntaxJS(e);
             }
 
             //CPP
-            if (type.equals(LangSyntax.CPP)) {
+            if(type.equals(LangSyntax.CPP)) {
                 setSyntaxJS(e);
             }
-        } catch (IllegalStateException ex) {
+        } catch(IllegalStateException ex) {
             // raised by Matcher.start()/.end() when
             // no successful match has been made what
             // shouldn't ever happen because of find()
@@ -441,28 +454,28 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     private static void clearSpans(Editable e, int length) {
         {
             ForegroundColorSpan[] spans = e.getSpans(
-                    0,
-                    length,
-                    ForegroundColorSpan.class);
+				0,
+				length,
+				ForegroundColorSpan.class);
 
-            for (int i = spans.length; i-- > 0; ) {
+            for(int i = spans.length; i-- > 0;) {
                 e.removeSpan(spans[i]);
             }
         }
         {
             BackgroundColorSpan[] spans = e.getSpans(0, length, BackgroundColorSpan.class);
 
-            for (int i = spans.length; i-- > 0; ) {
+            for(int i = spans.length; i-- > 0;) {
                 e.removeSpan(spans[i]);
             }
         }
     }
 
     private CharSequence autoIndent(
-            CharSequence source,
-            Spanned dest,
-            int dstart,
-            int dend) {
+		CharSequence source,
+		Spanned dest,
+		int dstart,
+		int dend) {
         String indent = "";
         int istart = dstart - 1;
 
@@ -470,25 +483,25 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         boolean dataBefore = false;
         int pt = 0;
 
-        for (; istart > -1; --istart) {
+        for(; istart > -1; --istart) {
             char c = dest.charAt(istart);
 
-            if (c == '\n') {
+            if(c == '\n') {
                 break;
             }
 
-            if (c != ' ' && c != '\t') {
-                if (!dataBefore) {
+            if(c != ' ' && c != '\t') {
+                if(!dataBefore) {
                     // indent always after those characters
-                    if (c == '{' ||
-                            c == '+' ||
-                            c == '-' ||
-                            c == '*' ||
-                            c == '/' ||
-                            c == '%' ||
-                            c == '^' ||
-                            c == '=' ||
-                            c == '<') {
+                    if(c == '{' ||
+					   c == '+' ||
+					   c == '-' ||
+					   c == '*' ||
+					   c == '/' ||
+					   c == '%' ||
+					   c == '^' ||
+					   c == '=' ||
+					   c == '<') {
                         --pt;
                     }
 
@@ -496,32 +509,32 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
                 }
 
                 // parenthesis counter
-                if (c == '(') {
+                if(c == '(') {
                     --pt;
-                } else if (c == ')') {
+                } else if(c == ')') {
                     ++pt;
                 }
             }
         }
 
         // copy indent of this line into the next
-        if (istart > -1) {
+        if(istart > -1) {
             char charAtCursor = dest.charAt(dstart);
             int iend;
 
-            for (iend = ++istart; iend < dend; ++iend) {
+            for(iend = ++istart; iend < dend; ++iend) {
                 char c = dest.charAt(iend);
 
                 // auto expand comments
-                if (charAtCursor != '\n' &&
-                        c == '/' &&
-                        iend + 1 < dend &&
-                        dest.charAt(iend) == c) {
+                if(charAtCursor != '\n' &&
+				   c == '/' &&
+				   iend + 1 < dend &&
+				   dest.charAt(iend) == c) {
                     iend += 2;
                     break;
                 }
 
-                if (c != ' ' && c != '\t') {
+                if(c != ' ' && c != '\t') {
                     break;
                 }
             }
@@ -530,7 +543,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         }
 
         // add new indent
-        if (pt < 0) {
+        if(pt < 0) {
             indent += "";
         }
 
@@ -539,11 +552,11 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     }
 
     private void convertTabs(Editable e, int start, int count) {
-        if (tabWidth < 1) {
+        if(tabWidth < 1) {
             return;
         }
         String s = e.toString();
-        for (int stop = start + count; (start = s.indexOf("", start)) > -1 && start < stop; ++start) {
+        for(int stop = start + count; (start = s.indexOf("", start)) > -1 && start < stop; ++start) {
             e.setSpan(new TabWidthSpan(tabWidth), start, start + 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
@@ -557,35 +570,35 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
 
         @Override
         public int getSize(
-                @NonNull Paint paint,
-                CharSequence text,
-                int start,
-                int end,
-                Paint.FontMetricsInt fm) {
+			@NonNull Paint paint,
+			CharSequence text,
+			int start,
+			int end,
+			Paint.FontMetricsInt fm) {
             return width;
         }
 
         @Override
         public void draw(
-                @NonNull Canvas canvas,
-                CharSequence text,
-                int start,
-                int end,
-                float x,
-                int top,
-                int y,
-                int bottom,
-                @NonNull Paint paint) {
+			@NonNull Canvas canvas,
+			CharSequence text,
+			int start,
+			int end,
+			float x,
+			int top,
+			int y,
+			int bottom,
+			@NonNull Paint paint) {
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
-        if (event.getPointerCount() == 2) {
+        if(event.getPointerCount() == 2) {
             int action = event.getAction();
             int pureaction = action & MotionEvent.ACTION_MASK;
-            if (pureaction == MotionEvent.ACTION_POINTER_DOWN) {
+            if(pureaction == MotionEvent.ACTION_POINTER_DOWN) {
                 mBaseDist = getDistance(event);
                 mBaseRatio = mRatio;
             } else {
@@ -621,14 +634,14 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
             Object editor = field.get(this);
             Drawable drawable = ContextCompat.getDrawable(getContext(), drawableResId);
 
-            if (drawable != null) {
+            if(drawable != null) {
                 drawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
             }
             Drawable[] drawables = {drawable, drawable};
             field = editor.getClass().getDeclaredField("mCursorDrawable");
             field.setAccessible(true);
             field.set(editor, drawables);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -658,11 +671,11 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     protected void onDraw(Canvas canvas) {
         try {
             super.onDraw(canvas);
-        } catch (Exception e) {
+        } catch(Exception e) {
             e.printStackTrace();
         }
 
-        if (lineHighlightEnabled) {
+        if(lineHighlightEnabled) {
             lineNumber = getLayout().getLineForOffset(getSelectionStart());
             getLineBounds(lineNumber, lineBounds);
 
@@ -670,7 +683,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
         }
 
         int count = getLineCount();
-        for (int i = 0; i < count; i++) {
+        for(int i = 0; i < count; i++) {
             int baseline = getLineBounds(i, null);
             String num = Integer.toString(i + 1);
             canvas.drawText(num, 10 + getScrollX(), baseline, mPaint);
@@ -696,8 +709,8 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
 
     @Override
     public void showDropDown() {
-        if (!isPopupShowing()) {
-            if (hasFocus()) {
+        if(!isPopupShowing()) {
+            if(hasFocus()) {
                 super.showDropDown();
             }
         }
@@ -734,7 +747,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
 
     public void setLineHighlightColor(int color) {
         highlightPaint.setColor(color);
-        if (lineHighlightEnabled) {
+        if(lineHighlightEnabled) {
             invalidate();
         }
     }
@@ -751,7 +764,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     protected void onPopupChangePosition() {
         try {
             Layout layout = getLayout();
-            if (layout != null) {
+            if(layout != null) {
 
                 int pos = getSelectionStart();
                 int line = layout.getLineForOffset(pos);
@@ -821,7 +834,7 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
                 ////////////////////-----------------------------
 
             }
-        } catch (Exception e) {
+        } catch(Exception e) {
             //Logger.error(TAG, e);
         }
     }
@@ -829,13 +842,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     public void selectLine() {
         int start = Math.min(getSelectionStart(), getSelectionEnd());
         int end = Math.max(getSelectionStart(), getSelectionEnd());
-        if (end > start) {
+        if(end > start) {
             end--;
         }
-        while (end < getText().length() && getText().charAt(end) != '\n') {
+        while(end < getText().length() && getText().charAt(end) != '\n') {
             end++;
         }
-        while (start > 0 && getText().charAt(start - 1) != '\n') {
+        while(start > 0 && getText().charAt(start - 1) != '\n') {
             start--;
         }
         setSelection(start, end);
@@ -844,13 +857,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     public void duplicateLine() {
         int start = Math.min(getSelectionStart(), getSelectionEnd());
         int end = Math.max(getSelectionStart(), getSelectionEnd());
-        if (end > start) {
+        if(end > start) {
             end--;
         }
-        while (end < getText().length() && getText().charAt(end) != '\n') {
+        while(end < getText().length() && getText().charAt(end) != '\n') {
             end++;
         }
-        while (start > 0 && getText().charAt(start - 1) != '\n') {
+        while(start > 0 && getText().charAt(start - 1) != '\n') {
             start--;
         }
         getEditableText().insert(end, "\n" + getText().subSequence(start, end).toString());
@@ -859,13 +872,13 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
     public void deleteLine() {
         int start = Math.min(getSelectionStart(), getSelectionEnd());
         int end = Math.max(getSelectionStart(), getSelectionEnd());
-        if (end > start) {
+        if(end > start) {
             end--;
         }
-        while (end < getText().length() && getText().charAt(end) != '\n') {
+        while(end < getText().length() && getText().charAt(end) != '\n') {
             end++;
         }
-        while (start > 0 && getText().charAt(start - 1) != '\n') {
+        while(start > 0 && getText().charAt(start - 1) != '\n') {
             start--;
         }
         getEditableText().delete(start, end);
@@ -880,82 +893,82 @@ public class CodeEditor extends AppCompatMultiAutoCompleteTextView {
 
     //Syntax utils
     public void setSyntaxHTML(Editable e) { //----------------HTML
-        for (Matcher m = SyntaxUtils.HTML_START_ELEMENT.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_START_ELEMENT.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorKeyword), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_END_ELEMENT.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_END_ELEMENT.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorKeyword), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_START_TAG.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_START_TAG.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorBuiltin), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_END_TAG.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_END_TAG.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorBuiltin), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_STRING_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_STRING_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorError), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_COMMENTS.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_COMMENTS.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_COMMENTS_TWO.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_COMMENTS_TWO.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.HTML_COMMENTS_XML.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.HTML_COMMENTS_XML.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 
     public void setSyntaxCSS(Editable e) { //-----------------CSS
-        for (Matcher m = SyntaxUtils.CSS_KEYWORDS_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_KEYWORDS_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorNumber), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.CSS_START_TAG.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_START_TAG.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorKeyword), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.CSS_END_TAG.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_END_TAG.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorKeyword), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.CSS_STRING_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_STRING_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorError), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.CSS_COMMENTS_SINGLE_LINE.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_COMMENTS_SINGLE_LINE.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.CSS_COMMENTS_MULTI_LINE.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.CSS_COMMENTS_MULTI_LINE.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
 
     public void setSyntaxJS(Editable e) { //-----------------JS
-        for (Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorNumber), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN_TWO.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN_TWO.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorKeyword), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN_THREE.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_KEYWORDS_PATTERN_THREE.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_BUILTIN_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_BUILTIN_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorError), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_SYMBOL_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_SYMBOL_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorString), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_SYMBOL_PATTERN_TWO.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_SYMBOL_PATTERN_TWO.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorNumber), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_STRING_PATTERN.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_STRING_PATTERN.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorError), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_STRING_PATTERN_TWO.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_STRING_PATTERN_TWO.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorError), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_COMMENTS_SINGLE_LINE.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_COMMENTS_SINGLE_LINE.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
-        for (Matcher m = SyntaxUtils.JS_COMMENTS_MULTI_LINE.matcher(e); m.find(); ) {
+        for(Matcher m = SyntaxUtils.JS_COMMENTS_MULTI_LINE.matcher(e); m.find();) {
             e.setSpan(new ForegroundColorSpan(colorComment), m.start(), m.end(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
     }
